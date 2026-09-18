@@ -1,1 +1,1187 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <meta name="description"
+          content="Advanced IPL Auction Simulator - Build Your Dream XI">
+
+    <meta name="theme-color" content="#070b18">
+
+    <title>IPL Auction | Build Your Dream XI</title>
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<!-- =====================================================
+     LOADING SCREEN
+===================================================== -->
+
+<div id="loadingScreen" class="loading-screen">
+    <div class="loader-content">
+        <div class="loader-logo">IPL</div>
+        <div class="loader-spinner"></div>
+        <p>Loading Auction...</p>
+    </div>
+</div>
+
+
+<!-- =====================================================
+     TOAST NOTIFICATION
+===================================================== -->
+
+<div id="toastContainer" class="toast-container"></div>
+
+
+<!-- =====================================================
+     NAVIGATION
+===================================================== -->
+
+<header class="topbar">
+
+    <div class="brand">
+
+        <div class="brand-logo">
+            IPL
+        </div>
+
+        <div class="brand-text">
+            <h1>IPL AUCTION</h1>
+            <span>BUILD YOUR DREAM XI</span>
+        </div>
+
+    </div>
+
+
+    <button
+        id="mobileMenuBtn"
+        class="mobile-menu-btn"
+        aria-label="Open menu">
+        ☰
+    </button>
+
+
+    <nav id="mainNav" class="main-nav">
+
+        <button class="nav-link active" data-section="home">
+            Home
+        </button>
+
+        <button class="nav-link" data-section="auction">
+            Auction
+        </button>
+
+        <button class="nav-link" data-section="players">
+            Players
+        </button>
+
+        <button class="nav-link" data-section="teams">
+            Teams
+        </button>
+
+        <button class="nav-link" data-section="sold">
+            Sold Players
+        </button>
+
+        <button class="nav-link" data-section="unsold">
+            Unsold Players
+        </button>
+
+        <button class="nav-link" data-section="statistics">
+            Statistics
+        </button>
+
+        <button class="nav-link" data-section="rules">
+            Rules
+        </button>
+
+    </nav>
+
+</header>
+
+
+<!-- =====================================================
+     MAIN APPLICATION
+===================================================== -->
+
+<main class="app-container">
+
+
+<!-- =====================================================
+     HOME SECTION
+===================================================== -->
+
+<section id="homeSection" class="page-section active">
+
+    <div class="hero">
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+                🏏 NEXT GENERATION AUCTION SIMULATOR
+            </div>
+
+            <h2>
+                IPL AUCTION
+                <span>2027</span>
+            </h2>
+
+            <p>
+                Build your squad. Manage your purse.
+                Make the winning bid.
+            </p>
+
+            <div class="hero-actions">
+
+                <button
+                    id="startAuctionBtn"
+                    class="btn btn-primary btn-large">
+                    🚀 Start Auction
+                </button>
+
+                <button
+                    id="viewPlayersBtn"
+                    class="btn btn-secondary btn-large">
+                    👤 View Players
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Auction Countdown -->
+
+        <div class="hero-countdown">
+
+            <span>AUCTION STARTS IN</span>
+
+            <div class="countdown-grid">
+
+                <div class="countdown-box">
+                    <strong id="countDays">00</strong>
+                    <small>DAYS</small>
+                </div>
+
+                <div class="countdown-box">
+                    <strong id="countHours">00</strong>
+                    <small>HOURS</small>
+                </div>
+
+                <div class="countdown-box">
+                    <strong id="countMinutes">00</strong>
+                    <small>MIN</small>
+                </div>
+
+                <div class="countdown-box">
+                    <strong id="countSeconds">00</strong>
+                    <small>SEC</small>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Quick Statistics -->
+
+    <div class="section-header">
+
+        <div>
+            <span class="eyebrow">OVERVIEW</span>
+            <h3>Auction Dashboard</h3>
+        </div>
+
+    </div>
+
+
+    <div class="stats-grid">
+
+        <article class="stat-card">
+
+            <div class="stat-icon">👤</div>
+
+            <div>
+                <span>Total Players</span>
+                <strong id="homeTotalPlayers">0</strong>
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon">💰</div>
+
+            <div>
+                <span>Players Sold</span>
+                <strong id="homeSoldPlayers">0</strong>
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon">❌</div>
+
+            <div>
+                <span>Unsold Players</span>
+                <strong id="homeUnsoldPlayers">0</strong>
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon">🏆</div>
+
+            <div>
+                <span>Highest Bid</span>
+                <strong id="homeHighestBid">₹0</strong>
+            </div>
+
+        </article>
+
+    </div>
+
+
+    <!-- Featured Teams -->
+
+    <div class="section-header">
+
+        <div>
+            <span class="eyebrow">FRANCHISES</span>
+            <h3>Participating Teams</h3>
+        </div>
+
+        <button
+            class="text-btn"
+            data-section="teams">
+            View All →
+        </button>
+
+    </div>
+
+
+    <div id="homeTeamsGrid" class="teams-grid">
+        <!-- Generated by JavaScript -->
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     AUCTION SECTION
+===================================================== -->
+
+<section id="auctionSection" class="page-section">
+
+    <div class="section-header">
+
+        <div>
+            <span class="eyebrow">LIVE ROOM</span>
+            <h2>Live Auction</h2>
+            <p>Bid for players and build your squad.</p>
+        </div>
+
+        <div class="auction-status">
+
+            <span
+                id="auctionStatusDot"
+                class="status-dot">
+            </span>
+
+            <span id="auctionStatusText">
+                READY
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="auction-layout">
+
+
+        <!-- Current Player -->
+
+        <div class="current-player-card">
+
+            <div class="player-image-container">
+
+                <img
+                    id="currentPlayerImage"
+                    src=""
+                    alt="Current player">
+
+                <div
+                    id="currentPlayerRole"
+                    class="player-role-badge">
+                    PLAYER
+                </div>
+
+            </div>
+
+
+            <div class="current-player-info">
+
+                <span class="eyebrow">
+                    CURRENT PLAYER
+                </span>
+
+                <h2 id="currentPlayerName">
+                    Auction Not Started
+                </h2>
+
+                <div class="player-meta">
+
+                    <span id="currentPlayerCountry">
+                        🌍 -
+                    </span>
+
+                    <span id="currentPlayerAge">
+                        🎂 -
+                    </span>
+
+                    <span id="currentPlayerRating">
+                        ⭐ -
+                    </span>
+
+                </div>
+
+
+                <div class="player-details-row">
+
+                    <div>
+                        <small>BASE PRICE</small>
+                        <strong id="currentBasePrice">
+                            ₹0
+                        </strong>
+                    </div>
+
+                    <div>
+                        <small>ROLE</small>
+                        <strong id="currentPlayerRoleText">
+                            -
+                        </strong>
+                    </div>
+
+                    <div>
+                        <small>STYLE</small>
+                        <strong id="currentPlayerStyle">
+                            -
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Bidding Panel -->
+
+        <aside class="bidding-panel">
+
+            <div class="bid-timer">
+
+                <span>TIME LEFT</span>
+
+                <strong id="bidTimer">
+                    00
+                </strong>
+
+            </div>
+
+
+            <div class="current-bid">
+
+                <span>CURRENT BID</span>
+
+                <strong id="currentBidAmount">
+                    ₹0
+                </strong>
+
+                <small id="currentBidTeam">
+                    No bids yet
+                </small>
+
+            </div>
+
+
+            <div class="bid-controls">
+
+                <label for="bidTeamSelect">
+                    Select Team
+                </label>
+
+                <select id="bidTeamSelect">
+                    <option value="">
+                        Choose team
+                    </option>
+                </select>
+
+
+                <label for="bidAmountInput">
+                    Bid Amount
+                </label>
+
+                <input
+                    id="bidAmountInput"
+                    type="number"
+                    min="0"
+                    placeholder="Enter bid amount">
+
+
+                <button
+                    id="placeBidBtn"
+                    class="btn btn-primary btn-block">
+                    🔨 Place Bid
+                </button>
+
+            </div>
+
+
+            <div class="quick-bids">
+
+                <span>QUICK BID</span>
+
+                <div class="quick-bid-buttons">
+
+                    <button data-increment="2000000">
+                        +20L
+                    </button>
+
+                    <button data-increment="5000000">
+                        +50L
+                    </button>
+
+                    <button data-increment="10000000">
+                        +1Cr
+                    </button>
+
+                </div>
+
+            </div>
+
+
+            <div class="auction-controls">
+
+                <button
+                    id="sellPlayerBtn"
+                    class="btn btn-success">
+                    ✓ Sell
+                </button>
+
+                <button
+                    id="unsoldPlayerBtn"
+                    class="btn btn-danger">
+                    ✕ Unsold
+                </button>
+
+                <button
+                    id="nextPlayerBtn"
+                    class="btn btn-secondary">
+                    Next →
+                </button>
+
+            </div>
+
+        </aside>
+
+    </div>
+
+
+    <!-- Bid History -->
+
+    <div class="panel bid-history-panel">
+
+        <div class="panel-header">
+
+            <div>
+                <span class="eyebrow">LIVE ACTIVITY</span>
+                <h3>Bid History</h3>
+            </div>
+
+            <span id="bidCountBadge" class="badge">
+                0 BIDS
+            </span>
+
+        </div>
+
+        <div id="bidHistory" class="bid-history">
+            <div class="empty-state">
+                <span>🔨</span>
+                <p>No bids yet</p>
+            </div>
+        </div>
+
+    </div>
+
+
+    <!-- Auctioneer Controls -->
+
+    <div class="panel auctioneer-panel">
+
+        <div class="panel-header">
+
+            <div>
+                <span class="eyebrow">CONTROL ROOM</span>
+                <h3>Auctioneer Controls</h3>
+            </div>
+
+        </div>
+
+        <div class="auctioneer-controls">
+
+            <button
+                id="pauseAuctionBtn"
+                class="btn btn-secondary">
+                ⏸ Pause
+            </button>
+
+            <button
+                id="resumeAuctionBtn"
+                class="btn btn-secondary">
+                ▶ Resume
+            </button>
+
+            <button
+                id="undoBidBtn"
+                class="btn btn-secondary">
+                ↩ Undo Bid
+            </button>
+
+            <button
+                id="resetCurrentBtn"
+                class="btn btn-secondary">
+                🔄 Reset Player
+            </button>
+
+            <button
+                id="resetAuctionBtn"
+                class="btn btn-danger">
+                ⚠ Reset Auction
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     PLAYERS SECTION
+===================================================== -->
+
+<section id="playersSection" class="page-section">
+
+    <div class="section-header">
+
+        <div>
+            <span class="eyebrow">DATABASE</span>
+            <h2>Players</h2>
+            <p>Explore the complete auction player pool.</p>
+        </div>
+
+        <span id="playersCount" class="badge">
+            0 PLAYERS
+        </span>
+
+    </div>
+
+
+    <!-- Player Filters -->
+
+    <div class="filter-panel">
+
+        <div class="search-box">
+
+            <span>🔍</span>
+
+            <input
+                id="playerSearch"
+                type="search"
+                placeholder="Search players...">
+
+        </div>
+
+
+        <select id="roleFilter">
+
+            <option value="all">
+                All Roles
+            </option>
+
+            <option value="Batter">
+                Batter
+            </option>
+
+            <option value="Bowler">
+                Bowler
+            </option>
+
+            <option value="All-rounder">
+                All-rounder
+            </option>
+
+            <option value="Wicketkeeper">
+                Wicketkeeper
+            </option>
+
+        </select>
+
+
+        <select id="countryFilter">
+
+            <option value="all">
+                All Countries
+            </option>
+
+        </select>
+
+
+        <select id="statusFilter">
+
+            <option value="all">
+                All Status
+            </option>
+
+            <option value="available">
+                Available
+            </option>
+
+            <option value="sold">
+                Sold
+            </option>
+
+            <option value="unsold">
+                Unsold
+            </option>
+
+        </select>
+
+
+        <select id="playerSort">
+
+            <option value="rating-desc">
+                Rating: High → Low
+            </option>
+
+            <option value="rating-asc">
+                Rating: Low → High
+            </option>
+
+            <option value="price-desc">
+                Price: High → Low
+            </option>
+
+            <option value="price-asc">
+                Price: Low → High
+            </option>
+
+            <option value="name-asc">
+                Name A → Z
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <div id="playersGrid" class="players-grid">
+        <!-- Generated by JavaScript -->
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TEAMS SECTION
+===================================================== -->
+
+<section id="teamsSection" class="page-section">
+
+    <div class="section-header">
+
+        <div>
+            <span class="eyebrow">FRANCHISES</span>
+            <h2>Teams</h2>
+            <p>Manage team purse and squad strength.</p>
+        </div>
+
+    </div>
+
+
+    <div id="teamsGrid" class="teams-grid large">
+        <!-- Generated by JavaScript -->
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SOLD PLAYERS SECTION
+===================================================== -->
+
+<section id="soldSection" class="page-section">
+
+    <div class="section-header">
+
+        <div>
+            <span class="eyebrow">AUCTION RESULTS</span>
+            <h2>Sold Players</h2>
+            <p>Players successfully purchased by teams.</p>
+        </div>
+
+        <span id="soldCount" class="badge">
+            0 SOLD
+        </span>
+
+    </div>
+
+
+    <div id="soldPlayersGrid" class="players-grid">
+        <!-- Generated by JavaScript -->
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     UNSOLD PLAYERS SECTION
+===================================================== -->
+
+<section id="unsoldSection" class="page-section">
+
+    <div class="section-header">
+
+        <div>
+            <span class="eyebrow">AUCTION RESULTS</span>
+            <h2>Unsold Players</h2>
+            <p>Players currently without a winning bid.</p>
+        </div>
+
+        <span id="unsoldCount" class="badge">
+            0 UNSOLD
+        </span>
+
+    </div>
+
+
+    <div id="unsoldPlayersGrid" class="players-grid">
+        <!-- Generated by JavaScript -->
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     STATISTICS SECTION
+===================================================== -->
+
+<section id="statisticsSection" class="page-section">
+
+    <div class="section-header">
+
+        <div>
+            <span class="eyebrow">ANALYTICS</span>
+            <h2>Auction Statistics</h2>
+            <p>Track spending, players and auction performance.</p>
+        </div>
+
+    </div>
+
+
+    <div class="stats-grid large">
+
+        <article class="stat-card">
+
+            <div class="stat-icon">👥</div>
+
+            <div>
+                <span>Total Players</span>
+                <strong id="statTotalPlayers">0</strong>
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon">✓</div>
+
+            <div>
+                <span>Sold</span>
+                <strong id="statSoldPlayers">0</strong>
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon">✕</div>
+
+            <div>
+                <span>Unsold</span>
+                <strong id="statUnsoldPlayers">0</strong>
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon">💰</div>
+
+            <div>
+                <span>Total Spending</span>
+                <strong id="statTotalSpending">₹0</strong>
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon">🏆</div>
+
+            <div>
+                <span>Highest Purchase</span>
+                <strong id="statHighestPurchase">₹0</strong>
+            </div>
+
+        </article>
+
+
+        <article class="stat-card">
+
+            <div class="stat-icon">📊</div>
+
+            <div>
+                <span>Average Price</span>
+                <strong id="statAveragePrice">₹0</strong>
+            </div>
+
+        </article>
+
+    </div>
+
+
+    <!-- Team Spending -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <div>
+                <span class="eyebrow">TEAM ANALYSIS</span>
+                <h3>Team Spending</h3>
+            </div>
+
+        </div>
+
+        <div id="teamSpendingChart" class="chart-container">
+            <!-- Generated by JavaScript -->
+        </div>
+
+    </div>
+
+
+    <!-- Top Purchases -->
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <div>
+                <span class="eyebrow">TOP DEALS</span>
+                <h3>Most Expensive Players</h3>
+            </div>
+
+        </div>
+
+        <div id="topPurchasesList" class="top-purchases">
+            <!-- Generated by JavaScript -->
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     RULES SECTION
+===================================================== -->
+
+<section id="rulesSection" class="page-section">
+
+    <div class="section-header">
+
+        <div>
+            <span class="eyebrow">HOW IT WORKS</span>
+            <h2>Auction Rules</h2>
+            <p>Understand the rules before starting the auction.</p>
+        </div>
+
+    </div>
+
+
+    <div class="rules-grid">
+
+        <article class="rule-card">
+
+            <div class="rule-number">01</div>
+
+            <h3>Base Price</h3>
+
+            <p>
+                Every player enters the auction with a
+                predefined base price.
+            </p>
+
+        </article>
+
+
+        <article class="rule-card">
+
+            <div class="rule-number">02</div>
+
+            <h3>Bid Increment</h3>
+
+            <p>
+                Teams must place a bid higher than the
+                current highest bid.
+            </p>
+
+        </article>
+
+
+        <article class="rule-card">
+
+            <div class="rule-number">03</div>
+
+            <h3>Purse Management</h3>
+
+            <p>
+                A team cannot bid more than its
+                remaining auction purse.
+            </p>
+
+        </article>
+
+
+        <article class="rule-card">
+
+            <div class="rule-number">04</div>
+
+            <h3>Sold Player</h3>
+
+            <p>
+                When the auction ends, the highest
+                valid bidder purchases the player.
+            </p>
+
+        </article>
+
+
+        <article class="rule-card">
+
+            <div class="rule-number">05</div>
+
+            <h3>Unsold Player</h3>
+
+            <p>
+                If there is no valid bid, the player
+                can be marked unsold.
+            </p>
+
+        </article>
+
+
+        <article class="rule-card">
+
+            <div class="rule-number">06</div>
+
+            <h3>Squad Limits</h3>
+
+            <p>
+                Team squad and overseas-player limits
+                are controlled by the application settings.
+            </p>
+
+        </article>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TEAM DETAILS MODAL
+===================================================== -->
+
+<div
+    id="teamModal"
+    class="modal"
+    aria-hidden="true">
+
+    <div class="modal-overlay"></div>
+
+    <div class="modal-content">
+
+        <button
+            class="modal-close"
+            data-close-modal="teamModal">
+            ×
+        </button>
+
+        <div id="teamModalContent">
+            <!-- Generated by JavaScript -->
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     PLAYER DETAILS MODAL
+===================================================== -->
+
+<div
+    id="playerModal"
+    class="modal"
+    aria-hidden="true">
+
+    <div class="modal-overlay"></div>
+
+    <div class="modal-content player-modal-content">
+
+        <button
+            class="modal-close"
+            data-close-modal="playerModal">
+            ×
+        </button>
+
+        <div id="playerModalContent">
+            <!-- Generated by JavaScript -->
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     CONFIRMATION MODAL
+===================================================== -->
+
+<div
+    id="confirmModal"
+    class="modal"
+    aria-hidden="true">
+
+    <div class="modal-overlay"></div>
+
+    <div class="modal-content confirmation-modal">
+
+        <div class="confirm-icon">
+            ⚠️
+        </div>
+
+        <h3 id="confirmTitle">
+            Confirm Action
+        </h3>
+
+        <p id="confirmMessage">
+            Are you sure?
+        </p>
+
+        <div class="modal-actions">
+
+            <button
+                id="confirmCancelBtn"
+                class="btn btn-secondary">
+                Cancel
+            </button>
+
+            <button
+                id="confirmActionBtn"
+                class="btn btn-danger">
+                Confirm
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-brand">
+
+        <div class="brand-logo">
+            IPL
+        </div>
+
+        <div>
+            <strong>IPL AUCTION</strong>
+            <span>Build Your Dream XI</span>
+        </div>
+
+    </div>
+
+
+    <p>
+        IPL Auction Simulator • Demo / Educational Project
+    </p>
+
+    <p class="footer-small">
+        This project is an independent simulator and is not
+        affiliated with or endorsed by the IPL, BCCI, or any franchise.
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     MAIN JAVASCRIPT
+===================================================== -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
+```
 
